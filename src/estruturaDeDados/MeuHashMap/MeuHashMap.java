@@ -30,13 +30,13 @@ public class MeuHashMap {
 
     public void inserir(CorpoCeleste corpoCeleste){
         int indice = hashFunction(corpoCeleste.getId(), this.tamanho);
-        this.numElementos++;
-        this.fatorDeCarga = (double)numElementos/tamanho;
 
         if(tabela[indice] == null){
             tabela[indice] = new Celula();
             tabela[indice].conteudo = corpoCeleste;
             tabela[indice].proximo = null;
+            this.numElementos++;
+            this.fatorDeCarga = (double)numElementos/tamanho;
 
             if(this.fatorDeCarga >= 0.75){
                 reHashing(this.fatorDeCarga);
@@ -46,16 +46,28 @@ public class MeuHashMap {
 
         Celula aux = tabela[indice];
 
-        while(aux.proximo != null){
+        while(true){
+            if(aux.conteudo.getId().equals(corpoCeleste.getId())){
+                aux.conteudo = corpoCeleste;
+                return;
+            }
+
+            if(aux.proximo == null){
+                break;
+            }
+
             aux = aux.proximo;
         }
 
         aux.proximo = new Celula();
         aux.proximo.conteudo = corpoCeleste;
         aux.proximo.proximo = null;
-        this.numColisoes++;
 
-        if(this.fatorDeCarga >= 0.75){
+        this.numElementos++;
+        this.numColisoes++;
+        this.fatorDeCarga = (double) numElementos / tamanho;
+
+        if (this.fatorDeCarga >= 0.75) {
             reHashing(this.fatorDeCarga);
         }
     }
@@ -84,6 +96,7 @@ public class MeuHashMap {
             if(aux.proximo.conteudo.getId().equals(idCorpoCeleste)){
                 aux.proximo = aux.proximo.proximo;
                 this.numElementos--;
+                this.numColisoes--;
                 this.fatorDeCarga = (double)numElementos/tamanho;
 
                 if(this.fatorDeCarga <= 0.25){
@@ -141,6 +154,7 @@ public class MeuHashMap {
 
         this.tabela = novaTabela;
         this.tamanho = novoTamanho;
+        this.fatorDeCarga = (double) this.numElementos / this.tamanho;
     }
 
     public CorpoCeleste retonarCorpoCeleste(String idCorpoCeleste){

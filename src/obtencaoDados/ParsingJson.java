@@ -11,19 +11,7 @@ import java.io.IOException;
 
 public class ParsingJson {
 
-    String jsonString;
-
-    {
-        try {
-            jsonString = HttpClientMain.execute();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void carregaDados(MeuHashMap hashMap){
+    public void parsingCorpoCeleste(MeuHashMap hashMap,String jsonString){
         JSONObject jsonObject = new JSONObject(jsonString);
 
         JSONArray bodies = jsonObject.getJSONArray("bodies");
@@ -32,56 +20,46 @@ public class ParsingJson {
             JSONObject body = bodies.getJSONObject(i);
 
             CorpoCeleste corpoCeleste = new CorpoCeleste();
-            Mass massCL = new Mass();
-            Vol volCL = new Vol();
 
-            massCL.setMassValue(null);
-            massCL.setMassExponent(0);
-            volCL.setVolValue(null);
-            volCL.setVolExponent(0);
+            corpoCeleste.setMassValue(null);
+            corpoCeleste.setMassExponent(0);
+            corpoCeleste.setVolValue(null);
+            corpoCeleste.setVolExponent(0);
 
-            String id = body.getString("id");
-            String name = body.getString("name");
-            Boolean isPlanet = body.getBoolean("isPlanet");
+            corpoCeleste.setId(body.getString("id"));
+            corpoCeleste.setName(body.getString("name"));
+            corpoCeleste.setIsPlanet(body.getBoolean("isPlanet"));
 
             if(!body.isNull("mass")){
                 JSONObject mass = body.getJSONObject("mass");
 
                 if(mass.has("massValue")){
-                    massCL.setMassValue(mass.getDouble("massValue"));
-                    massCL.setMassExponent(mass.getInt("massExponent"));
+                    corpoCeleste.setMassValue(mass.getDouble("massValue"));
+                    corpoCeleste.setMassExponent(mass.getInt("massExponent"));
                 }
             }
 
             if(!body.isNull("vol")){
                 JSONObject vol = body.getJSONObject("vol");
+
                 if(vol.has("volValue")){
-                    volCL.setVolValue(vol.getDouble("volValue"));
-                    volCL.setVolExponent(vol.getInt("volExponent"));
+                    corpoCeleste.setVolValue(vol.getDouble("volValue"));
+                    corpoCeleste.setVolExponent(vol.getInt("volExponent"));
                 }
             }
 
-            Double density = body.getDouble("density");
-            Double gravity = body.getDouble("gravity");
-            Double sideralOrbit = body.getDouble("sideralOrbit");
-            Double sideralRotation = body.getDouble("sideralRotation");
-            int avgTemp = body.getInt("avgTemp");
-            String bodyType = body.getString("bodyType");
-
-            corpoCeleste.setId(id);
-            corpoCeleste.setName(name);
-            corpoCeleste.setIsPlanet(isPlanet);
-            corpoCeleste.setMass(massCL);
-            corpoCeleste.setVol(volCL);
-            corpoCeleste.setDensity(density);
-            corpoCeleste.setGravity(gravity);
-            corpoCeleste.setSideralOrbit(sideralOrbit);
-            corpoCeleste.setSideralRotation(sideralRotation);
-            corpoCeleste.setAvgTemp(avgTemp);
-            corpoCeleste.setBodyType(bodyType);
+            corpoCeleste.setDensity(body.getDouble("density"));
+            corpoCeleste.setGravity(body.getDouble("gravity"));
+            corpoCeleste.setSideralOrbit(body.getDouble("sideralOrbit"));
+            corpoCeleste.setSideralRotation(body.getDouble("sideralRotation"));
+            corpoCeleste.setAvgTemp(body.getInt("avgTemp"));
+            corpoCeleste.setBodyType(body.getString("bodyType"));
 
             hashMap.inserir(corpoCeleste);
         }
-        System.out.println("DADOS CARREGADOS COM SUCESSO!");
+    }
+
+    public void parsingKnowCount(){
+
     }
 }

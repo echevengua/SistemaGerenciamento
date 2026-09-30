@@ -13,6 +13,11 @@ public class CorpoCeleste {
     private int avgTemp;
     private String bodyType;
 
+    public CorpoCeleste(){
+        this.mass = new Mass();
+        this.vol = new Vol();
+    }
+
     public String getId(){
         return id;
     }
@@ -33,8 +38,24 @@ public class CorpoCeleste {
         this.mass = mass;
     }
 
+    public void setMassValue(Double massValue){
+        this.mass.setMassValue(massValue);
+    }
+
+    public void setMassExponent(int massExponent){
+        this.mass.setMassExponent(massExponent);
+    }
+
     public void setVol(Vol vol){
         this.vol = vol;
+    }
+
+    public void setVolValue(Double volValue){
+        this.vol.setVolValue(volValue);
+    }
+
+    public void setVolExponent(int volExponent){
+        this.vol.setVolExponent(volExponent);
     }
 
     public void setDensity(Double density){

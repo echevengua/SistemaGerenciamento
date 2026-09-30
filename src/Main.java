@@ -14,10 +14,10 @@ public class Main {
         int opcao;
         boolean flagCarregamentoDados = false;
 
-        System.out.print("BEM VINDO AO SISTEMA DE GERENCIAMENTO E PLANEJAMENTO DE MISSOES ESPACIAIS\n\n");
+        System.out.print("BEM VINDO AO SISTEMA DE GERENCIAMENTO E PLANEJAMENTO DE MISSOES ESPACIAIS\n");
 
-        while(true) {
-            System.out.print("1. Carregamento de Dados\n");
+        while(true){
+            System.out.print("\n1. Carregamento de Dados\n");
             System.out.print("2. Consulta dos Dados\n");
             System.out.print("3. Imprimir informacoes tabela hash\n");
             System.out.print("4. Sair\n");
@@ -27,12 +27,7 @@ public class Main {
 
             switch(opcao){
                 case 1:
-                    if(!flagCarregamentoDados){
-                        parsingJson.carregaDados(hashMap);
-                        flagCarregamentoDados = true;
-                    }else{
-                        System.out.print("DADOS JA FORAM CARREGADOS!\n\n");
-                    }
+                    Menu.carregamentoDados(sc,hashMap);
 
                     break;
                 case 2:
