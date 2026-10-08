@@ -173,11 +173,11 @@ public class MeuHashMap {
     }
 
     public void imprimirInformacoes(){
-        System.out.print("\n=====================\n");
-        System.out.print("|INFORMACOES TABELA HASH\n|\n");
-        System.out.printf("|Tamanho maximo: %d\n", this.tamanho);
-        System.out.printf("|Numero de Elementos: %d\n", this.numElementos);
-        System.out.printf("|Numero de Colisoes: %d\n", this.numColisoes);
-        System.out.printf("|Fator de Carga: %f\n\n", this.fatorDeCarga);
+        System.out.print("\n╔═══════════════════════\n");
+        System.out.print("║INFORMACOES TABELA HASH\n║\n");
+        System.out.printf("║Tamanho maximo: %d\n", this.tamanho);
+        System.out.printf("║Numero de Elementos: %d\n", this.numElementos);
+        System.out.printf("║Numero de Colisoes: %d\n", this.numColisoes);
+        System.out.printf("║Fator de Carga: %f\n\n", this.fatorDeCarga);
     }
 }
