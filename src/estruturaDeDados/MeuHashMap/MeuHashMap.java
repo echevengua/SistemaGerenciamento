@@ -2,6 +2,9 @@ package estruturaDeDados.MeuHashMap;
 
 import objetos.corpoCeleste.CorpoCeleste;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MeuHashMap {
 
     int tamanho;
@@ -170,6 +173,20 @@ public class MeuHashMap {
         }
 
         return null;
+    }
+
+    public List<CorpoCeleste> retornarTodosCorpoCeleste(){
+        List<CorpoCeleste> lista = new ArrayList<>();
+
+        for(int i = 0;i < this.tamanho;i++){
+            Celula aux = this.tabela[i];
+
+            while (aux != null) {
+                lista.add(aux.conteudo);
+                aux = aux.proximo;
+            }
+        }
+        return lista;
     }
 
     public void imprimirInformacoes(){

@@ -13,6 +13,18 @@ public class HttpBodiesService {
     private static final String TOKEN = "1af10ef8-ef25-4e4d-94b7-8228d55d1dce";
     private static final Path DATA_DIR = Paths.get("data");
 
+    public static void inicializar(){
+        if(Files.exists(DATA_DIR)){
+            return;
+        }
+
+        try {
+            Files.createDirectories(DATA_DIR);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void getPlanets() throws IOException, InterruptedException{
         Path destino = DATA_DIR.resolve("planets.json");
 

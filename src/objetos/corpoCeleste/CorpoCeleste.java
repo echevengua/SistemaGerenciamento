@@ -22,6 +22,30 @@ public class CorpoCeleste {
         return id;
     }
 
+    public String getBodyType(){
+        return this.bodyType;
+    }
+
+    public Double getDensity(){
+        return this.density;
+    }
+
+    public Double getGravity(){
+        return this.gravity;
+    }
+
+    public Double getSideralOrbit(){
+        return this.sideralOrbit;
+    }
+
+    public Double getSideralRotation(){
+        return this.sideralRotation;
+    }
+
+    public int getAvgTemp(){
+        return this.avgTemp;
+    }
+
     public void setId(String id){
         this.id = id;
     }

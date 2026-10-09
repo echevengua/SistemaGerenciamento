@@ -1,6 +1,7 @@
 package menu;
 
 import estruturaDeDados.MeuHashMap.MeuHashMap;
+import objetos.corpoCeleste.CorpoCeleste;
 import obtencaoDados.HttpBodiesService;
 import obtencaoDados.ParsingJson;
 
@@ -9,6 +10,8 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -18,7 +21,7 @@ public class Menu {
 
         System.out.print("\n1. Pesquisa por ID\n");
         System.out.print("2. Pesquisa por atributos\n");
-        System.out.print("3. Listagem\n");
+        System.out.print("3. Filtragem\n");
         System.out.print("4. Voltar\n");
 
         System.out.print("Escolha sua opcao: ");
@@ -36,13 +39,162 @@ public class Menu {
                 }
                 break;
             case 2:
+                pesquisaAtributos(sc,hashMap);
+
                 break;
 
             case 3:
+                filtragem(sc,hashMap);
+
                 break;
 
             case 4:
+                return;
+        }
+    }
+
+    private static void pesquisaAtributos(Scanner sc, MeuHashMap hashMap){
+        int opcao;
+        String categoria;
+
+        System.out.print("\n1. Categoria do Corpo Celeste\n");
+        System.out.println("2. Voltar\n");
+
+        System.out.print("Escolha sua opcao: ");
+        opcao = sc.nextInt();
+        sc.nextLine();
+
+        switch(opcao){
+            case 1:
+                System.out.print("Digite categoria do corpo celeste(Asteroid, Star, Planet, Comet, Dwarf Planet, Moon): ");
+                categoria = sc.nextLine();
+
+                List<CorpoCeleste> lista = hashMap.retornarTodosCorpoCeleste();
+
+                for(int i = 0; i < lista.size();i++){
+                    if(lista.get(i).getBodyType().equals(categoria)){
+                        lista.get(i).imprimirDados();
+                    }
+                }
                 break;
+            case 2:
+                return;
+        }
+    }
+
+    private static void filtragem(Scanner sc, MeuHashMap hashMap){
+        int opcao;
+        double min, max;
+        List<CorpoCeleste> lista = hashMap.retornarTodosCorpoCeleste();
+        boolean existeUm = false;
+
+        System.out.print("\n1. Densidade\n");
+        System.out.print("2. Gravidade\n");
+        System.out.print("3. Orbita Sideral\n");
+        System.out.print("4. Rotacao Sideral\n");
+        System.out.print("5. Temperatura Media\n");
+        System.out.println("6. Voltar\n");
+
+        System.out.print("Escolha sua opcao: ");
+        opcao = sc.nextInt();
+
+        switch (opcao) {
+            case 1:
+                System.out.print("Digite densidade minima: ");
+                min = sc.nextDouble();
+
+                System.out.print("Digite densidade maxima: ");
+                max = sc.nextDouble();
+
+                for(int i = 0; i < lista.size();i++){
+                    if(lista.get(i).getDensity() >= min && lista.get(i).getDensity() <= max){
+                        lista.get(i).imprimirDados();
+                        existeUm = true;
+                    }
+                }
+
+                if(existeUm == false){
+                    System.out.println("Não foi encontrado um corpo celeste com esses dados!");
+                }
+
+                break;
+            case 2:
+                System.out.print("Digite gravidade minima: ");
+                min = sc.nextDouble();
+
+                System.out.print("Digite gravidade maxima: ");
+                max = sc.nextDouble();
+
+                for(int i = 0; i < lista.size();i++){
+                    if(lista.get(i).getGravity() >= min && lista.get(i).getGravity() <= max){
+                        lista.get(i).imprimirDados();
+                        existeUm = true;
+                    }
+                }
+
+                if(existeUm == false){
+                    System.out.println("Não foi encontrado um corpo celeste com esses dados!");
+                }
+
+                break;
+            case 3:
+                System.out.print("Digite orbita sideral minima: ");
+                min = sc.nextDouble();
+
+                System.out.print("Digite orbita sideral maxima: ");
+                max = sc.nextDouble();
+
+                for(int i = 0; i < lista.size();i++){
+                    if(lista.get(i).getSideralOrbit() >= min && lista.get(i).getSideralOrbit() <= max){
+                        lista.get(i).imprimirDados();
+                        existeUm = true;
+                    }
+                }
+
+                if(existeUm == false){
+                    System.out.println("Não foi encontrado um corpo celeste com esses dados!");
+                }
+
+                break;
+            case 4:
+                System.out.print("Digite rotacao sideral minima: ");
+                min = sc.nextDouble();
+
+                System.out.print("Digite rotacao sideral maxima: ");
+                max = sc.nextDouble();
+
+                for(int i = 0; i < lista.size();i++){
+                    if(lista.get(i).getSideralRotation() >= min && lista.get(i).getSideralRotation() <= max){
+                        lista.get(i).imprimirDados();
+                        existeUm = true;
+                    }
+                }
+
+                if(existeUm == false){
+                    System.out.println("Não foi encontrado um corpo celeste com esses dados!");
+                }
+
+                break;
+            case 5:
+                System.out.print("Digite temperatura media minima: ");
+                min = sc.nextDouble();
+
+                System.out.print("Digite temperatura media maxima: ");
+                max = sc.nextDouble();
+
+                for(int i = 0; i < lista.size();i++){
+                    if(lista.get(i).getAvgTemp() >= min && lista.get(i).getAvgTemp() <= max){
+                        lista.get(i).imprimirDados();
+                        existeUm = true;
+                    }
+                }
+
+                if(existeUm == false){
+                    System.out.println("Não foi encontrado um corpo celeste com esses dados!");
+                }
+                break;
+            case 6:
+                return;
         }
     }
 
@@ -251,5 +403,49 @@ public class Menu {
                     return;
             }
         }
+    }
+
+    public static void planejamentoMissao(Scanner sc, MeuHashMap hashMap){
+        List<CorpoCeleste> lista = hashMap.retornarTodosCorpoCeleste();
+        List<CorpoCeleste> listaCorpoValidos = new ArrayList<>();
+
+        for(int i = 0; i < lista.size();i++){
+            if(lista.get(i).getDensity() > 1 && lista.get(i).getSideralOrbit() > 0){
+                listaCorpoValidos.add(lista.get(i));
+            }
+        }
+
+        double alvo;
+        int quantidadeParadas = 0;
+        double retornoAtual = 0;
+
+        System.out.print("BEM VINDO AO PLANEJAMENTO DA MISSAO\n\n");
+
+        System.out.print("Digite retorno maximo desejado(Max: 227): ");
+        alvo = sc.nextDouble();
+
+        listaCorpoValidos.sort((a, b) -> {
+            double razaoA = a.getDensity() / a.getSideralOrbit();
+            double razaoB = b.getDensity() / b.getSideralOrbit();
+            return Double.compare(razaoB, razaoA);
+        });
+
+        for(int i = 0; i < listaCorpoValidos.size();i++){
+            if(listaCorpoValidos.get(i).getId().equals("aton")){
+                continue;
+            }
+
+            if(retornoAtual >= alvo){
+                break;
+            }
+
+            quantidadeParadas++;
+            retornoAtual += listaCorpoValidos.get(i).getDensity();
+        }
+
+        System.out.print("\nRESULTADO MISSAO\n\n");
+        System.out.printf("Retorno desejado: %f\n", alvo);
+        System.out.printf("Retorno obtido: %f\n", retornoAtual);
+        System.out.printf("Numero de paradas: %d\n", quantidadeParadas);
     }
 }

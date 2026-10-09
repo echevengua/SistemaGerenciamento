@@ -1,5 +1,6 @@
 import estruturaDeDados.MeuHashMap.MeuHashMap;
 import menu.Menu;
+import obtencaoDados.HttpBodiesService;
 import obtencaoDados.ParsingJson;
 
 import java.util.Scanner;
@@ -11,6 +12,8 @@ public class Main {
         MeuHashMap hashMap = new MeuHashMap();
         ParsingJson parsingJson = new ParsingJson();
 
+        HttpBodiesService.inicializar();
+
         int opcao;
 
         System.out.print("BEM VINDO AO SISTEMA DE GERENCIAMENTO E PLANEJAMENTO DE MISSOES ESPACIAIS\n");
@@ -20,7 +23,8 @@ public class Main {
             System.out.print("2. Carregar Dados Para Tabela Hash\n");
             System.out.print("3. Consulta dos Dados\n");
             System.out.print("4. Imprimir informacoes tabela hash\n");
-            System.out.print("5. Sair\n");
+            System.out.print("5. Planejamento Missao\n");
+            System.out.print("6. Sair\n");
 
             System.out.print("Escolha sua opcao: ");
             opcao = sc.nextInt();
@@ -43,6 +47,10 @@ public class Main {
 
                     break;
                 case 5:
+                    Menu.planejamentoMissao(sc,hashMap);
+
+                    break;
+                case 6:
                     sc.close();
                     System.out.print("SAINDO DO SISTEMA...\n");
                     System.exit(0);
