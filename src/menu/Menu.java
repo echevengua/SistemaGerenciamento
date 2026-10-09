@@ -415,14 +415,13 @@ public class Menu {
             }
         }
 
-        double alvo;
-        int quantidadeParadas = 0;
+        int quantidadeViagens;
         double retornoAtual = 0;
 
         System.out.print("BEM VINDO AO PLANEJAMENTO DA MISSAO\n\n");
 
-        System.out.print("Digite retorno maximo desejado(Max: 227): ");
-        alvo = sc.nextDouble();
+        System.out.print("Digite a quantidade de viagens: ");
+        quantidadeViagens = sc.nextInt();
 
         listaCorpoValidos.sort((a, b) -> {
             double razaoA = a.getDensity() / a.getSideralOrbit();
@@ -430,22 +429,13 @@ public class Menu {
             return Double.compare(razaoB, razaoA);
         });
 
-        for(int i = 0; i < listaCorpoValidos.size();i++){
-            if(listaCorpoValidos.get(i).getId().equals("aton")){
-                continue;
-            }
+        for(int i = 0; i < quantidadeViagens;i++){
 
-            if(retornoAtual >= alvo){
-                break;
-            }
-
-            quantidadeParadas++;
-            retornoAtual += listaCorpoValidos.get(i).getDensity();
+            retornoAtual += listaCorpoValidos.get(i).getDensity()/listaCorpoValidos.get(i).getSideralOrbit();
         }
 
         System.out.print("\nRESULTADO MISSAO\n\n");
-        System.out.printf("Retorno desejado: %f\n", alvo);
         System.out.printf("Retorno obtido: %f\n", retornoAtual);
-        System.out.printf("Numero de paradas: %d\n", quantidadeParadas);
+        System.out.printf("Numero de paradas: %d\n", quantidadeViagens);
     }
 }
