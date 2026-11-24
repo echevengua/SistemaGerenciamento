@@ -30,4 +30,11 @@ public class MinhaArvoreB {
             raiz.inserirNaoCheio(raiz, chave,this);
         }
     }
+
+    public void imprimirInformacoes(){
+        System.out.print("\n╔═══════════════════════\n");
+        System.out.print("║INFORMACOES ARVORE B\n║\n");
+//        System.out.printf("║Altura: %d\n", this.tamanho);
+        System.out.printf("║Numero de Splits: %d\n", this.numSplit);
+    }
 }

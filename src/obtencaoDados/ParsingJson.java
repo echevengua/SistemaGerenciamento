@@ -1,5 +1,6 @@
 package obtencaoDados;
 
+import estruturaDeDados.minhaArvoreB.MinhaArvoreB;
 import estruturaDeDados.minhaTrie.MinhaTrie;
 import objetos.corpoCeleste.CorpoCeleste;
 import objetos.corpoCeleste.Mass;
@@ -12,7 +13,7 @@ import java.io.IOException;
 
 public class ParsingJson {
 
-    public void parsingCorpoCeleste(MeuHashMap hashMap, MinhaTrie trie, String jsonString){
+    public void parsingCorpoCeleste(MeuHashMap hashMap, MinhaTrie trie, MinhaArvoreB arvoreB, String jsonString){
         JSONObject jsonObject = new JSONObject(jsonString);
 
         JSONArray bodies = jsonObject.getJSONArray("bodies");
@@ -58,6 +59,7 @@ public class ParsingJson {
 
             hashMap.inserir(corpoCeleste);
             trie.inserir(corpoCeleste.getName());
+            arvoreB.inserir(corpoCeleste.getSideralOrbit().intValue());
         }
     }
 

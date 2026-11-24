@@ -1,6 +1,7 @@
 package menu;
 
 import estruturaDeDados.MeuHashMap.MeuHashMap;
+import estruturaDeDados.minhaArvoreB.MinhaArvoreB;
 import estruturaDeDados.minhaTrie.MinhaTrie;
 import objetos.corpoCeleste.CorpoCeleste;
 import obtencaoDados.HttpBodiesService;
@@ -301,7 +302,7 @@ public class Menu {
         }
     }
 
-    public static void carregaDadosEstruturas(Scanner sc, MeuHashMap hashMap, MinhaTrie trie) {
+    public static void carregaDadosEstruturas(Scanner sc, MeuHashMap hashMap, MinhaTrie trie, MinhaArvoreB arvoreB) {
         ParsingJson parsingJson = new ParsingJson();
         String json = null;
 
@@ -331,7 +332,7 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,arvoreB,json);
                     System.out.print("\nEstrela Carregada com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
@@ -345,7 +346,7 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,arvoreB,json);
                     System.out.print("\nPLanetas Carregados com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
@@ -359,7 +360,7 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,arvoreB,json);
                     System.out.print("\nPLanetas Anoes Carregados com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
@@ -373,7 +374,7 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,arvoreB,json);
                     System.out.print("\nAsteroides Carregados com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
@@ -387,7 +388,7 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,arvoreB,json);
                     System.out.print("\nCometas Carregados com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
@@ -401,7 +402,7 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,arvoreB,json);
                     System.out.print("\nLuas Carregadas com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
@@ -419,7 +420,7 @@ public class Menu {
                             throw new RuntimeException(e);
                         }
 
-                        parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                        parsingJson.parsingCorpoCeleste(hashMap,trie,arvoreB,json);
                     }
                     System.out.print("\nCorpos Celeste Carregados com Sucesso Para As Estruturas De Dados!\n");
                     break;

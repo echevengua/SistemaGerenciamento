@@ -27,8 +27,9 @@ public class Main {
             System.out.print("2. Carregar Dados Para As Estruturas\n");
             System.out.print("3. Consulta dos Dados\n");
             System.out.print("4. Imprimir informacoes tabela hash\n");
-            System.out.print("5. Planejamento Missao\n");
-            System.out.print("6. Sair\n");
+            System.out.print("5. Imprimir inforfacoes arvoreB\n");
+            System.out.print("6. Planejamento Missao\n");
+            System.out.print("7. Sair\n");
 
             System.out.print("Escolha sua opcao: ");
             opcao = sc.nextInt();
@@ -39,7 +40,7 @@ public class Main {
 
                     break;
                 case 2:
-                    Menu.carregaDadosEstruturas(sc,hashMap,trie);
+                    Menu.carregaDadosEstruturas(sc,hashMap,trie,arvoreB);
 
                     break;
                 case 3:
@@ -51,10 +52,14 @@ public class Main {
 
                     break;
                 case 5:
-                    Menu.planejamentoMissao(sc,hashMap);
+                    arvoreB.imprimirInformacoes();
 
                     break;
                 case 6:
+                    Menu.planejamentoMissao(sc,hashMap);
+
+                    break;
+                case 7:
                     sc.close();
                     System.out.print("SAINDO DO SISTEMA...\n");
                     System.exit(0);
