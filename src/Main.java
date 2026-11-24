@@ -1,4 +1,6 @@
 import estruturaDeDados.MeuHashMap.MeuHashMap;
+import estruturaDeDados.minhaArvoreB.MinhaArvoreB;
+import estruturaDeDados.minhaTrie.MinhaTrie;
 import menu.Menu;
 import obtencaoDados.HttpBodiesService;
 import obtencaoDados.ParsingJson;
@@ -10,6 +12,8 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         MeuHashMap hashMap = new MeuHashMap();
+        MinhaTrie trie = new MinhaTrie();
+        MinhaArvoreB arvoreB = new MinhaArvoreB(4);
         ParsingJson parsingJson = new ParsingJson();
 
         HttpBodiesService.inicializar();
@@ -20,7 +24,7 @@ public class Main {
 
         while(true){
             System.out.print("\n1. Obter Dados da API\n");
-            System.out.print("2. Carregar Dados Para Tabela Hash\n");
+            System.out.print("2. Carregar Dados Para As Estruturas\n");
             System.out.print("3. Consulta dos Dados\n");
             System.out.print("4. Imprimir informacoes tabela hash\n");
             System.out.print("5. Planejamento Missao\n");
@@ -35,11 +39,11 @@ public class Main {
 
                     break;
                 case 2:
-                    Menu.carregaDadosTabelaHash(sc,hashMap);
+                    Menu.carregaDadosEstruturas(sc,hashMap,trie);
 
                     break;
                 case 3:
-                    Menu.consultaDados(sc,hashMap);
+                    Menu.consultaDados(sc,hashMap,trie);
 
                     break;
                 case 4:

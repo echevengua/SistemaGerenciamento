@@ -22,6 +22,10 @@ public class CorpoCeleste {
         return id;
     }
 
+    public String getName(){
+        return name;
+    }
+
     public String getBodyType(){
         return this.bodyType;
     }

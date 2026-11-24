@@ -1,6 +1,7 @@
 package menu;
 
 import estruturaDeDados.MeuHashMap.MeuHashMap;
+import estruturaDeDados.minhaTrie.MinhaTrie;
 import objetos.corpoCeleste.CorpoCeleste;
 import obtencaoDados.HttpBodiesService;
 import obtencaoDados.ParsingJson;
@@ -15,41 +16,64 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    public static void consultaDados(Scanner sc, MeuHashMap hashMap) {
+    public static void consultaDados(Scanner sc, MeuHashMap hashMap, MinhaTrie trie) {
         int opcao;
         String id;
+        String nome;
 
-        System.out.print("\n1. Pesquisa por ID\n");
-        System.out.print("2. Pesquisa por atributos\n");
-        System.out.print("3. Filtragem\n");
-        System.out.print("4. Voltar\n");
 
-        System.out.print("Escolha sua opcao: ");
-        opcao = sc.nextInt();
+        while(true) {
+            System.out.print("\n1. Pesquisa por ID\n");
+            System.out.print("2. Verificar corpo celeste cadastrado pelo nome\n");
+            System.out.print("3. Listar dado um prefixo\n");
+            System.out.print("4. Pesquisa por atributos\n");
+            System.out.print("5. Filtragem\n");
+            System.out.print("6. Voltar\n");
 
-        switch (opcao) {
-            case 1:
-                System.out.print("Digite ID a ser procurado: ");
-                id = sc.next();
+            System.out.print("Escolha sua opcao: ");
+            opcao = sc.nextInt();
 
-                if (hashMap.retonarCorpoCeleste(id) == null) {
-                    System.out.print("CORPO CELESTE NAO ENCONTRADO!\n");
-                } else {
-                    hashMap.retonarCorpoCeleste(id).imprimirDados();
-                }
-                break;
-            case 2:
-                pesquisaAtributos(sc,hashMap);
+            switch (opcao) {
+                case 1:
+                    System.out.print("Digite ID a ser procurado: ");
+                    id = sc.next();
 
-                break;
+                    if (hashMap.retonarCorpoCeleste(id) == null) {
+                        System.out.print("CORPO CELESTE NAO ENCONTRADO!\n");
+                    } else {
+                        hashMap.retonarCorpoCeleste(id).imprimirDados();
+                    }
+                    break;
+                case 2:
+                    System.out.print("Digite nome a ser procurado: ");
+                    sc.nextLine();
+                    nome = sc.nextLine();
 
-            case 3:
-                filtragem(sc,hashMap);
+                    trie.buscar(nome);
+                    break;
 
-                break;
+                case 3:
+                    System.out.print("Digite prefixo: ");
+                    sc.nextLine();
+                    nome = sc.nextLine();
 
-            case 4:
-                return;
+                    trie.buscarPrefixo(nome);
+                    break;
+
+                case 4:
+                    pesquisaAtributos(sc, hashMap);
+
+                    return;
+
+                case 5:
+                    filtragem(sc, hashMap);
+
+                    break;
+
+                case 6:
+                    return;
+
+            }
         }
     }
 
@@ -277,20 +301,20 @@ public class Menu {
         }
     }
 
-    public static void carregaDadosTabelaHash(Scanner sc, MeuHashMap hashMap) {
+    public static void carregaDadosEstruturas(Scanner sc, MeuHashMap hashMap, MinhaTrie trie) {
         ParsingJson parsingJson = new ParsingJson();
         String json = null;
 
         int opcao;
 
         while (true) {
-            System.out.print("\n1. Carregar Estrelas Para Tabela Hash\n");
-            System.out.print("2. Carregar Planetas Para Tabela Hash\n");
-            System.out.print("3. Carregar Planetas Anoes Para Tabela Hash\n");
-            System.out.print("4. Carregar Asteroides Para Tabela Hash\n");
-            System.out.print("5. Carregar Cometas Para Tabela Hash\n");
-            System.out.print("6. Carregar Luas Para Tabela Hash\n");
-            System.out.print("7. Carregar Todos Corpo Celestes Para Tabela Hash\n");
+            System.out.print("\n1. Carregar Estrelas Para Estruturas De Dados\n");
+            System.out.print("2. Carregar Planetas Para Estruturas De Dados\n");
+            System.out.print("3. Carregar Planetas Anoes Para Estruturas De Dados\n");
+            System.out.print("4. Carregar Asteroides Para Estruturas De Dados\n");
+            System.out.print("5. Carregar Cometas Para Estruturas De Dados\n");
+            System.out.print("6. Carregar Luas Para Estruturas De Dados\n");
+            System.out.print("7. Carregar Todos Corpo Celestes Para Estruturas De Dados\n");
             System.out.print("8. Voltar\n");
 
             System.out.print("Escolha sua opcao: ");
@@ -307,8 +331,8 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,json);
-                    System.out.print("\nEstrela Carregada com Sucesso Para Tabela Hash!\n");
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    System.out.print("\nEstrela Carregada com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
                 case 2:
@@ -321,8 +345,8 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,json);
-                    System.out.print("\nPLanetas Carregados com Sucesso Para Tabela Hash!\n");
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    System.out.print("\nPLanetas Carregados com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
                 case 3:
@@ -335,8 +359,8 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,json);
-                    System.out.print("\nPLanetas Anoes Carregados com Sucesso Para Tabela Hash!\n");
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    System.out.print("\nPLanetas Anoes Carregados com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
                 case 4:
@@ -349,8 +373,8 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,json);
-                    System.out.print("\nAsteroides Carregados com Sucesso Para Tabela Hash!\n");
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    System.out.print("\nAsteroides Carregados com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
                 case 5:
@@ -363,8 +387,8 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,json);
-                    System.out.print("\nCometas Carregados com Sucesso Para Tabela Hash!\n");
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    System.out.print("\nCometas Carregados com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
                 case 6:
@@ -377,8 +401,8 @@ public class Menu {
                         throw new RuntimeException(e);
                     }
 
-                    parsingJson.parsingCorpoCeleste(hashMap,json);
-                    System.out.print("\nLuas Carregadas com Sucesso Para Tabela Hash!\n");
+                    parsingJson.parsingCorpoCeleste(hashMap,trie,json);
+                    System.out.print("\nLuas Carregadas com Sucesso Para As Estruturas De Dados!\n");
 
                     break;
                 case 7:
@@ -395,9 +419,9 @@ public class Menu {
                             throw new RuntimeException(e);
                         }
 
-                        parsingJson.parsingCorpoCeleste(hashMap,json);
+                        parsingJson.parsingCorpoCeleste(hashMap,trie,json);
                     }
-                    System.out.print("\nCorpos Celeste Carregados com Sucesso Para Tabela Hash!\n");
+                    System.out.print("\nCorpos Celeste Carregados com Sucesso Para As Estruturas De Dados!\n");
                     break;
                 case 8:
                     return;
@@ -415,14 +439,13 @@ public class Menu {
             }
         }
 
-        double alvo;
-        int quantidadeParadas = 0;
+        int quantidadeViagens;
         double retornoAtual = 0;
 
         System.out.print("BEM VINDO AO PLANEJAMENTO DA MISSAO\n\n");
 
-        System.out.print("Digite retorno maximo desejado(Max: 227): ");
-        alvo = sc.nextDouble();
+        System.out.print("Digite a quantidade de viagens: ");
+        quantidadeViagens = sc.nextInt();
 
         listaCorpoValidos.sort((a, b) -> {
             double razaoA = a.getDensity() / a.getSideralOrbit();
@@ -430,22 +453,13 @@ public class Menu {
             return Double.compare(razaoB, razaoA);
         });
 
-        for(int i = 0; i < listaCorpoValidos.size();i++){
-            if(listaCorpoValidos.get(i).getId().equals("aton")){
-                continue;
-            }
+        for(int i = 0; i < quantidadeViagens;i++){
 
-            if(retornoAtual >= alvo){
-                break;
-            }
-
-            quantidadeParadas++;
-            retornoAtual += listaCorpoValidos.get(i).getDensity();
+            retornoAtual += listaCorpoValidos.get(i).getDensity()/listaCorpoValidos.get(i).getSideralOrbit();
         }
 
         System.out.print("\nRESULTADO MISSAO\n\n");
-        System.out.printf("Retorno desejado: %f\n", alvo);
         System.out.printf("Retorno obtido: %f\n", retornoAtual);
-        System.out.printf("Numero de paradas: %d\n", quantidadeParadas);
+        System.out.printf("Numero de paradas: %d\n", quantidadeViagens);
     }
 }
