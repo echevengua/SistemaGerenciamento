@@ -17,19 +17,20 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    public static void consultaDados(Scanner sc, MeuHashMap hashMap, MinhaTrie trie) {
+    public static void consultaDados(Scanner sc, MeuHashMap hashMap, MinhaTrie trie, MinhaArvoreB arvoreB) {
         int opcao;
         String id;
         String nome;
 
 
         while(true) {
-            System.out.print("\n1. Pesquisa por ID\n");
-            System.out.print("2. Verificar corpo celeste cadastrado pelo nome\n");
-            System.out.print("3. Listar dado um prefixo\n");
-            System.out.print("4. Pesquisa por atributos\n");
-            System.out.print("5. Filtragem\n");
-            System.out.print("6. Voltar\n");
+            System.out.print("\n1. Pesquisa por ID(Tabela Hash)\n");
+            System.out.print("2. Verificar corpo celeste cadastrado pelo nome(Trie)\n");
+            System.out.print("3. Listar dado um prefixo(Trie)\n");
+            System.out.print("4. Pesquisa por atributos(Tabela Hash)\n");
+            System.out.print("5. Filtragem(Tabela Hash)\n");
+            System.out.print("6. Listar Corpos Celestes(ArvoreB)\n");
+            System.out.print("7. Voltar\n");
 
             System.out.print("Escolha sua opcao: ");
             opcao = sc.nextInt();
@@ -37,7 +38,8 @@ public class Menu {
             switch (opcao) {
                 case 1:
                     System.out.print("Digite ID a ser procurado: ");
-                    id = sc.next();
+                    sc.nextLine();
+                    id = sc.nextLine();
 
                     if (hashMap.retonarCorpoCeleste(id) == null) {
                         System.out.print("CORPO CELESTE NAO ENCONTRADO!\n");
@@ -72,8 +74,10 @@ public class Menu {
                     break;
 
                 case 6:
-                    return;
+                    arvoreB.listarCorposCelestes(arvoreB.getRaiz());
 
+                case 7:
+                    return;
             }
         }
     }

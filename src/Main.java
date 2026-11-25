@@ -44,7 +44,7 @@ public class Main {
 
                     break;
                 case 3:
-                    Menu.consultaDados(sc,hashMap,trie);
+                    Menu.consultaDados(sc,hashMap,trie,arvoreB);
 
                     break;
                 case 4:

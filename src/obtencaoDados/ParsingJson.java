@@ -59,7 +59,7 @@ public class ParsingJson {
 
             hashMap.inserir(corpoCeleste);
             trie.inserir(corpoCeleste.getName());
-            arvoreB.inserir(corpoCeleste.getSideralOrbit().intValue());
+            arvoreB.inserir(corpoCeleste);
         }
     }
 

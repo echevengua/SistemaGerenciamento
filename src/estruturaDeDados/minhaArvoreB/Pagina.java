@@ -1,9 +1,11 @@
 package estruturaDeDados.minhaArvoreB;
 
+import objetos.corpoCeleste.CorpoCeleste;
+
 public class Pagina {
     int ordem;
     int numChaves;
-    int[] chaves;
+    Chave[] chaves;
     Pagina[] filho;
     boolean folha;
 
@@ -12,7 +14,7 @@ public class Pagina {
         this.numChaves = 0;
         this.folha = folha;
 
-        chaves = new int[ordem - 1];
+        chaves = new Chave[ordem - 1];
         filho = new Pagina[ordem];
     }
 
@@ -43,22 +45,27 @@ public class Pagina {
         }
 
         pai.chaves[index] = filho.chaves[ordem / 2 - 1];
+        filho.chaves[ordem / 2 - 1] = null;
         pai.numChaves++;
     }
 
-    public void inserirNaoCheio(Pagina pagina, int chave, MinhaArvoreB arvoreB){
+    public void inserirNaoCheio(Pagina pagina,CorpoCeleste corpoCeleste, MinhaArvoreB arvoreB){
         int i = pagina.numChaves - 1;
 
         if(pagina.folha){
-            while(i >= 0 && pagina.chaves[i] > chave){
+            while(i >= 0 && pagina.chaves[i].chave > corpoCeleste.getSideralOrbit()){
                 pagina.chaves[i + 1] = pagina.chaves[i];
                 i--;
             }
 
-            pagina.chaves[i + 1] = chave;
+            Chave novaChave = new Chave();
+            novaChave.chave = corpoCeleste.getSideralOrbit();
+            novaChave.corpoCeleste = corpoCeleste;
+
+            pagina.chaves[i + 1] = novaChave;
             pagina.numChaves++;
         }else{
-            while(i >= 0 && pagina.chaves[i] > chave){
+            while(i >= 0 && pagina.chaves[i].chave > corpoCeleste.getSideralOrbit()){
                 i--;
             }
             i++;
@@ -67,12 +74,12 @@ public class Pagina {
                 split(pagina, i);
                 arvoreB.numSplit++;
 
-                if(pagina.chaves[i] < chave){
+                if(pagina.chaves[i].chave < corpoCeleste.getSideralOrbit()){
                     i++;
                 }
             }
 
-            inserirNaoCheio(pagina.filho[i], chave,arvoreB);
+            inserirNaoCheio(pagina.filho[i],corpoCeleste,arvoreB);
         }
     }
 }
